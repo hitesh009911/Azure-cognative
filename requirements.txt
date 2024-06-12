@@ -5,3 +5,4 @@ flask
 logging
 threading
 time
+msrest
