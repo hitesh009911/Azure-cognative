@@ -1,0 +1,4 @@
+azure-storage-blob
+azure-cosmos
+azure-cognitiveservices-vision-computervision
+flask

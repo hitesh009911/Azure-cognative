@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style1.css') }}">
+    <title>Image Analysis</title>
+</head>
+<body>
+    <h1>Image Analysis</h1>
+
+    <!-- List of stored images for analysis -->
+    <h2>Choose from Stored Images:</h2>
+    <ul class="image-list">
+        {% for blob_name in blob_list %}
+            <li class="image-item">
+                <a href="{{ url_for('analyze_blob', blob_name=blob_name) }}">{{ blob_name }}</a>
+                <button class="delete-button" onclick="deleteImage('{{ blob_name }}')">Delete</button>
+            </li>
+        {% endfor %}
+    </ul>
+
+    <!-- Link to go back to the index page -->
+    <a href="{{ url_for('index') }}">Go back to Index</a>
+
+    <script>
+        function deleteImage(blob_name) {
+            // Send a POST request to delete the image
+            fetch(`/delete_image/${blob_name}`, {
+                method: 'POST',
+            })
+            .then(response => {
+                if (response.ok) {
+                    // If the deletion is successful, reload the page
+                    window.location.reload();
+                } else {
+                    // If an error occurs, display an error message
+                    alert('Error deleting image.');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Error deleting image.');
+            });
+        }
+    </script>
+</body>
+</html>
